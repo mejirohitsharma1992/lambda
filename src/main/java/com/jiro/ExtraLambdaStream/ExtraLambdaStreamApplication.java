@@ -8,19 +8,18 @@ public class ExtraLambdaStreamApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ExtraLambdaStreamApplication.class, args);
-		Walkable obj=new WalkFast();
-		obj.walk(4);
+		Walkable obj=(steps,isEnabled)->{
+			System.out.println("Walking fast "+steps +" steps.");
+			return 2+steps;
+		};
+		Walkable obj2=(steps,isEnabled)->2+steps;
+		obj.walk(4,true);
+		System.out.println(obj2.walk(4,true));
 	}
 
 }
+
 interface Walkable{
-	int walk(int steps);
+	int walk(int steps,boolean isEnabled);
 }
-class WalkFast implements Walkable{
 
-	@Override
-	public int walk(int steps) {
-		System.out.println("Walking fast "+steps +" steps.");
-		return 2+steps;
-	}
-}
